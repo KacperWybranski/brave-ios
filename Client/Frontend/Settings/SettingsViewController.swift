@@ -547,7 +547,7 @@ extension TableViewController: Themeable {
         //  View manipulations done via `apperance()` do not impact existing UI, so need to adjust manually
         // exiting menus, so setting explicitly.
         navigationController?.navigationBar.tintColor = UINavigationBar.appearance().tintColor
-        navigationController?.navigationBar.barTintColor = UINavigationBar.appearance().appearanceBarTintColor
+        navigationController?.navigationBar.barTintColor = UINavigationBar.appearance().barTintColor
         navigationController?.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.foregroundColor: theme.colors.tints.home]
     }
