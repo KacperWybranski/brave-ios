@@ -182,7 +182,7 @@ private class ListController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.backgroundView = UIView()
-        $0.backgroundColor = BraveUX.popoverDarkBackground
+        $0.backgroundColor = UIColor.braveBackground
         $0.separatorColor = .clear
         $0.allowsSelectionDuringEditing = true
     }
@@ -230,15 +230,15 @@ private class ListController: UIViewController {
     private func setTheme() {
         title = Strings.PlayList.playListSectionTitle
 
-        view.backgroundColor = BraveUX.popoverDarkBackground
+        view.backgroundColor = UIColor.braveBackground
         navigationController?.do {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithTransparentBackground()
             appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.backgroundColor = BraveUX.popoverDarkBackground
+            appearance.backgroundColor = UIColor.braveBackground
             
             $0.navigationBar.standardAppearance = appearance
-            $0.navigationBar.barTintColor = BraveUX.popoverDarkBackground
+            $0.navigationBar.barTintColor = UIColor.braveBackground
             $0.navigationBar.tintColor = .white
         }
     }
@@ -921,7 +921,7 @@ extension ListController: UITableViewDragDelegate, UITableViewDropDelegate {
         
         let preview = UIDragPreviewParameters()
         preview.visiblePath = UIBezierPath(roundedRect: cell.contentView.frame, cornerRadius: 12.0)
-        preview.backgroundColor = slightlyLighterColour(color: BraveUX.popoverDarkBackground)
+        preview.backgroundColor = slightlyLighterColour(color: UIColor.braveBackground)
         return preview
     }
 
@@ -930,7 +930,7 @@ extension ListController: UITableViewDragDelegate, UITableViewDropDelegate {
         
         let preview = UIDragPreviewParameters()
         preview.visiblePath = UIBezierPath(roundedRect: cell.contentView.frame, cornerRadius: 12.0)
-        preview.backgroundColor = slightlyLighterColour(color: BraveUX.popoverDarkBackground)
+        preview.backgroundColor = slightlyLighterColour(color: UIColor.braveBackground)
         return preview
     }
     
@@ -1356,10 +1356,10 @@ private class DetailController: UIViewController, UIGestureRecognizerDelegate {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithTransparentBackground()
             appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.backgroundColor = BraveUX.popoverDarkBackground
+            appearance.backgroundColor = UIColor.braveBackground
             
             $0.navigationBar.standardAppearance = appearance
-            $0.navigationBar.barTintColor = BraveUX.popoverDarkBackground
+            $0.navigationBar.barTintColor = UIColor.braveBackground
             $0.navigationBar.tintColor = .white
         }
     }
