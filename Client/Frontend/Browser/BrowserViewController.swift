@@ -430,16 +430,6 @@ class BrowserViewController: UIViewController {
         }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        let isDark = Theme.of(tabManager.selectedTab).isDark
-        if isDark {
-            return .lightContent
-        }
-        
-        // Light content, so using other status bar options
-        return .darkContent
-    }
-
     func shouldShowFooterForTraitCollection(_ previousTraitCollection: UITraitCollection) -> Bool {
         return previousTraitCollection.verticalSizeClass != .compact && previousTraitCollection.horizontalSizeClass != .regular
     }
@@ -465,9 +455,6 @@ class BrowserViewController: UIViewController {
             toolbar?.setSearchButtonState(url: tabManager.selectedTab?.url)
             footer.addSubview(toolbar!)
             toolbar?.tabToolbarDelegate = self
-
-            let theme = Theme.of(tabManager.selectedTab)
-            toolbar?.applyTheme(theme)
 
             updateTabCountUsingTabManager(self.tabManager)
         }
@@ -513,7 +500,6 @@ class BrowserViewController: UIViewController {
         
         if UITraitCollection.current.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
             // Reload UI
-            applyTheme(Theme.of(tabManager.selectedTab))
         }
     }
 
@@ -677,8 +663,6 @@ class BrowserViewController: UIViewController {
         setupConstraints()
         
         updateRewardsButtonState()
-        
-        applyTheme(Theme.of(tabManager.selectedTab))
 
         // Setup UIDropInteraction to handle dragging and dropping
         // links into the view from other apps.
@@ -980,8 +964,7 @@ class BrowserViewController: UIViewController {
                 guard let onboarding = OnboardingNavigationController(
                     profile: profile,
                     onboardingType: .existingUserRewardsOff(currentProgress),
-                    rewards: rewards,
-                    theme: Theme.of(tabManager.selectedTab)
+                    rewards: rewards
                     ) else { return }
                 
                 onboarding.onboardingDelegate = self
@@ -1002,8 +985,7 @@ class BrowserViewController: UIViewController {
             guard !isRewardsEnabled, let onboarding = OnboardingNavigationController(
                 profile: profile,
                 onboardingType: .existingUserRewardsOff(currentProgress),
-                rewards: rewards,
-                theme: Theme.of(tabManager.selectedTab)
+                rewards: rewards
                 ) else { return }
             
             onboarding.onboardingDelegate = self
@@ -1020,8 +1002,7 @@ class BrowserViewController: UIViewController {
             guard !isRewardsEnabled, let onboarding = OnboardingNavigationController(
                 profile: profile,
                 onboardingType: .existingUserRewardsOff(currentProgress),
-                rewards: rewards,
-                theme: Theme.of(tabManager.selectedTab)
+                rewards: rewards
                 ) else { return }
             
             onboarding.onboardingDelegate = self
@@ -1038,8 +1019,7 @@ class BrowserViewController: UIViewController {
             guard let onboarding = OnboardingNavigationController(
                 profile: profile,
                 onboardingType: .newUser(currentProgress),
-                rewards: rewards,
-                theme: Theme.of(tabManager.selectedTab)
+                rewards: rewards
                 ) else { return }
             
             onboarding.onboardingDelegate = self
@@ -1103,7 +1083,7 @@ class BrowserViewController: UIViewController {
         
         shouldShowIntroScreen = false
         
-        let vc = DefaultBrowserIntroCalloutViewController(theme: Theme.of(tabManager.selectedTab)) 
+        let vc = DefaultBrowserIntroCalloutViewController() 
         let idiom = UIDevice.current.userInterfaceIdiom
         vc.modalPresentationStyle = idiom == .phone ? .pageSheet : .formSheet
         present(vc, animated: true)
@@ -3223,12 +3203,12 @@ extension BrowserViewController: Themeable {
     }
     
     func applyTheme(_ theme: Theme) {
-        theme.applyAppearanceProperties()
+//        theme.applyAppearanceProperties()
         
-        styleChildren(theme: theme)
-
-        statusBarOverlay.backgroundColor = topToolbar.backgroundColor
-        setNeedsStatusBarAppearanceUpdate()
+//        styleChildren(theme: theme)
+//
+//        statusBarOverlay.backgroundColor = topToolbar.backgroundColor
+//        setNeedsStatusBarAppearanceUpdate()
     }
 }
 

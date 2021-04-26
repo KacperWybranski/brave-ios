@@ -89,10 +89,6 @@ class BraveRewardsViewController: UIViewController, Themeable, PopoverContentCom
         }
     }
     
-    func applyTheme(_ theme: Theme) {
-        rewardsView.applyTheme(theme)
-    }
-    
     private func reloadData() {
         guard let ledger = self.rewards.ledger else { return }
         if !self.rewards.isEnabled {
