@@ -581,7 +581,7 @@ class BrowserViewController: UIViewController {
         view.addLayoutGuide(pageOverlayLayoutGuide)
 
         webViewContainerBackdrop = UIView()
-        webViewContainerBackdrop.backgroundColor = UIColor.Photon.grey50
+        webViewContainerBackdrop.backgroundColor = .braveBackground
         webViewContainerBackdrop.alpha = 0
         view.addSubview(webViewContainerBackdrop)
 
@@ -590,6 +590,7 @@ class BrowserViewController: UIViewController {
 
         // Temporary work around for covering the non-clipped web view content
         statusBarOverlay = UIView()
+        statusBarOverlay.backgroundColor = .secondaryBraveBackground
         view.addSubview(statusBarOverlay)
 
         topTouchArea = UIButton()
@@ -2752,7 +2753,7 @@ extension BrowserViewController: TabManagerDelegate {
 
             let newTheme = Theme.of(tab)
             if previous == nil || newTheme != Theme.of(previous) {
-                applyTheme(newTheme)
+//                applyTheme(newTheme)
             }
 
             readerModeCache = ReaderMode.cache(for: tab)
@@ -3190,28 +3191,6 @@ extension BrowserViewController: TabTrayDelegate {
     }
 }
 
-// MARK: Browser Chrome Theming
-extension BrowserViewController: Themeable {
-    
-    var themeableChildren: [Themeable?]? {
-        return [topToolbar,
-                toolbar,
-                readerModeBar,
-                tabsBar,
-                tabManager.selectedTab?.newTabPageViewController,
-                favoritesController]
-    }
-    
-    func applyTheme(_ theme: Theme) {
-//        theme.applyAppearanceProperties()
-        
-//        styleChildren(theme: theme)
-//
-//        statusBarOverlay.backgroundColor = topToolbar.backgroundColor
-//        setNeedsStatusBarAppearanceUpdate()
-    }
-}
-
 extension BrowserViewController: FindInPageBarDelegate, FindInPageHelperDelegate {
     func findInPage(_ findInPage: FindInPageBar, didTextChange text: String) {
         find(text, function: "find")
@@ -3403,7 +3382,9 @@ extension BrowserViewController: PreferencesObserver {
         case Preferences.General.tabBarVisibility.key:
             updateTabsBarVisibility()
         case Preferences.General.themeNormalMode.key:
-            applyTheme(Theme.of(tabManager.selectedTab))
+//            applyTheme(Theme.of(tabManager.selectedTab))
+            // FIXME: Theme - Use trait collection override
+            break
         case Preferences.Privacy.privateBrowsingOnly.key:
             let isPrivate = Preferences.Privacy.privateBrowsingOnly.value
             switchToPrivacyMode(isPrivate: isPrivate)
